@@ -1,12 +1,9 @@
-FROM       cyberdojofoundation/gplusplus:7.1
-MAINTAINER Jon Jagger <jon@jaggersoft.com>
+FROM  cyberdojofoundation/gplusplus:7.1
+LABEL maintainer=jon@jaggersoft.com
 
-RUN apt-get update && apt-get install -y \
-  libgtest-dev \
-  cmake
+ADD install.sh /
 
-RUN cd /usr/src/gtest && cmake .
-RUN cd /usr/src/gtest && make
-RUN cd /usr/src/gtest && mv libg* /usr/lib
+RUN /install.sh \
+  && rm -f /install.sh
 
 COPY red_amber_green.rb /usr/local/bin
